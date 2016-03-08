@@ -1,4 +1,8 @@
 <?php
+
+namespace App;
+
+
 class UserRole extends Eloquent {
 
 	/**

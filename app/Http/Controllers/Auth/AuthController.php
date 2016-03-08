@@ -33,9 +33,9 @@ class AuthController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/';
-    protected $redirectPath = '/dashboard';
-    protected $loginPath = '/login';
+    //protected $redirectTo = '/';
+    //protected $redirectPath = '/dashboard';
+    //protected $loginPath = '/auth/login';
 
     /**
      * Create a new authentication controller instance.
@@ -44,7 +44,7 @@ class AuthController extends Controller
      */
     public function __construct()
     {        
-        $this->middleware('guest', ['except' => 'getLogout']);
+        //$this->middleware('guest', ['except' => 'getLogout']);
         $this->middleware('is_admin', ['only' => ['getRegister','postRegister']]);      
     }
 
@@ -80,7 +80,7 @@ class AuthController extends Controller
         );
         
         if (\Auth::attempt($user_data,$request->has('remember')))
-        {   
+        {           
             return \Redirect::to('users');
         }
 
@@ -92,7 +92,8 @@ class AuthController extends Controller
     }
 
     public function getRegister(){
-        return view('auth.register');
+        $roles=Role::all();
+        return view('auth.register',compact('roles'))->with('message','');;
     }
 
     public function postLogin2(Request $request){
@@ -172,12 +173,11 @@ class AuthController extends Controller
                 'active'=>1                
             ]);        
         
-        $role = Role::where('name','=',$user_data['role'])->first();        
-        $user->attachRole($role);                
+        $role=Role::where('id',$user_data['role'])->first();
         
+        $user->attachRole($role);       
 
-        return redirect('auth/register')->with('message','store');
-
+        return redirect('auth/register')->with('status','Usuario registrado');
     }
 
     /**
@@ -203,10 +203,6 @@ class AuthController extends Controller
         }
         return \Redirect::to('auth/login')
                     ->with('message', 'Tu sesión ha sido cerrada.');
-    }
-    
-    public function alias(){
-        echo 'prueba alias';
     }
 
 }

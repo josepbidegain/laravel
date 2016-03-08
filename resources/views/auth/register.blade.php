@@ -71,9 +71,9 @@
 
                             <div class="col-md-6">
                                 <select name="role">
-                                    <option value="user">User</option>    
-                                    <option value="admin">Admin</option>    
-                                    <option value="super">Super Admin</option>    
+                                @foreach ($roles as $role)
+                                    <option value="{{ $role->id }}">{{ $role->name }}</option>    
+                                @endforeach                                    
                                 </select>
                                 
                             </div>
@@ -85,8 +85,14 @@
                                     <i class="fa fa-btn fa-user"></i>Register
                                 </button>
                             </div>
-                        </div>
+                        </div>                        
                     </form>
+                    @if (session('status'))
+                        <div class="alert alert-success">
+                            {{ session('status') }}
+                        </div>
+                    @endif
+                
                 </div>
             </div>
         </div>

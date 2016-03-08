@@ -12,20 +12,6 @@
 */
 
 
-//Route::get('auth/logout', array('uses' => 'Auth\AuthController@doLogout'));
-
-Route::post('alias',['as'=>'probandoAlias','uses'=>'Auth\AuthController@alias']);
-
-
-Route::get('hola',function(){
-	$route = Route::current();
-
-	$name = $route->getName();
-	echo $name;
-	$actionName = $route->getActionName();
-	echo $actionName;
-});
-
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -38,31 +24,33 @@ Route::get('hola',function(){
 */
 
 
-Route::resource('users','UserController');	
+Route::get('','HomeController@index');
 
-Route::group(['middleware' => ['web']], function () {
+
+
+Route::group(['middleware' => ['web'],'role'=>'admin'], function () {
+	
+	Route::resource('users','UserController');	 
 
 	Route::controllers([
 		'auth'=>'Auth\AuthController',
 		'password'=>'Auth\PasswordController',
 	]);
+
+	Route::get('sendemail', function () {
+
+	    $data = array(
+	        'name' => "Learning Laravel",
+	    );
+
+	    Mail::send('auth.login', $data, function ($message) {
+	        $message->from('josepbidegain@gmail.com', 'Learning Laravel');
+	        $message->to('jpbidegain@live.com')->subject('Learning Laravel test email');
+	    });
+
+	    return "Your email has been sent successfully";
+	});
 	
-	/*
-		//Rutas privadas solo para usuarios autenticados
-		Route::group(['before' => 'auth'], function()
-		{
-		    Route::get('/', 'HomeController@showWelcome'); // Vista de inicio
-		});
-
-	*/
-	/*
-	// Authentication routes...
-	Route::get('auth/login', 'Auth\AuthController@getLogin');
-	Route::post('auth/login', ['as' =>'auth/login', 'uses' => 'Auth\AuthController@postLogin']);
-	Route::get('auth/logout', ['as' => 'auth/logout', 'uses' => 'Auth\AuthController@doLogout']);
-
-	// Registration routes...
-	Route::get('auth/register', 'Auth\AuthController@getRegister');
-	Route::post('auth/register', ['as' => 'auth/register', 'uses' => 'Auth\AuthController@postRegister']);
-	*/
 });
+
+Route::any( '(.*)', 'NotFoundController@index');

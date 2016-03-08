@@ -14,13 +14,11 @@ use Auth;
 
 class UserController extends Controller
 {
-   
-   private $autorizado;
-   
+      
    public function __construct() {
       //$this->autorizado = (Auth::check() and Auth::user()->getRole(Auth::user()->id) == 1);      
         $this->middleware('auth');        
-        $this->middleware('is_admin', ['except' => ['index','show','edit']]);        
+        $this->middleware('is_admin', ['except' => ['show','edit']]);        
 
 /*
         $this->beforeFilter('ver_usuarios', array('only' => 'index') );
@@ -34,14 +32,13 @@ class UserController extends Controller
 
     public function index(){
 
-        //if(!$this->autorizado) return ('nada');
         
         $user = Auth::user();
         $users = User::paginate(3);
         
         
         //return view('user.index',['users'=>$users,'user'=>$user]);        
-        return view('user.index',['users'=>$users]);        
+        return view('user.index',compact('users'));        
     }
 /*
     public function index($array){
@@ -87,7 +84,7 @@ auth if(Auth::check(in
 
     public function edit($id){
         $user = User::find($id);
-        return view('user.edit',['user'=>$user]);
+        return view('user.edit',compact('user'));
     }
 
     public function update(Request $request,$id){
@@ -102,8 +99,8 @@ auth if(Auth::check(in
         }
 
         $user->save();
-        Session::flash('message','Usuario editado correctamente');
-        return Redirect::to('users');
+        
+        return Redirect::to("users/$id/edit")->with('status','Usuario editado correctamente');
     }
 
     public function destroy($id){

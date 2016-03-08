@@ -1,4 +1,4 @@
-@extends('app')
+@extends('layouts.app')
 
 @section('content')
 {!!Form::model($user,['route'=>['users.update',$user->id],'method'=>'PUT'])!!}
@@ -15,4 +15,10 @@
 {!!Form::open(['route'=>['users.index',$user->id],'method'=>'GET'])!!}
 		{!!Form::submit('Volver',['class'=>'btn btn-info'])!!}
 	{!!Form::close()!!}
+
+	@if (session('status'))
+	    <div class="alert alert-success">
+	        {{ session('status') }}
+	    </div>
+	@endif
 @endsection

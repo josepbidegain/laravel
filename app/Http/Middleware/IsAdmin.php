@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\Guard;
 
 use Closure;
 use Illuminate\Support\Facades\Auth;
+use Session;
 
 
 class IsAdmin
@@ -23,14 +24,21 @@ class IsAdmin
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next, $guard = null)
+
+    public function handle($request, Closure $next)
     {
-        if (Auth::guard($guard)->guest() || $this->auth->user()->type != 'admin') {
-            return redirect()->to('auth/login');
-        }elseif ($request->ajax()) {
-            return response('Unauthorized.', 401);
+        $user = $this->auth->user();        
+        $route = $request->route();
+        $actions = $route->getAction();
+        if(array_key_exists('role',$actions)) {
+            $role=$actions['role'];
+            if(!$user->hasRole($role)) {
+                return redirect("users/$user->id");                
+                //return response('Unauthorized Access');                
+            }
         }
 
         return $next($request);
     }
+
 }

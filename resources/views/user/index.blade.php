@@ -1,17 +1,8 @@
-@extends('app')
+@extends('layouts.app')
 
 @section('content')
-<ul class="nav nav-pills nav-stacked">
-  <li>Users</li>
-  <li>Productos</li>
-  <li>Categorias</li>
-  <li>Producto/Categorias</li>
-  <li>Logout</li>
-</ul>
-<div class="container">
 
-	<h1> Bienvenido</h1>    
-    <p> {{ link_to('/auth/logout', 'Cerrar sesión') }} </p>
+<div class="container">	
 
   <h2>Admin usuarios</h2>
   

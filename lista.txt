@@ -1,0 +1,27 @@
++--------+--------------------------------+--------------------------------------------------------+---------------+------------------------------------------------------------+-------------------+
+| Domain | Method                         | URI                                                    | Name          | Action                                                     | Middleware        |
++--------+--------------------------------+--------------------------------------------------------+---------------+------------------------------------------------------------+-------------------+
+|        | GET|HEAD|POST|PUT|PATCH|DELETE | (.*)                                                   |               | App\Http\Controllers\NotFoundController@index              |                   |
+|        | GET|HEAD                       | /                                                      |               | App\Http\Controllers\HomeController@index                  | auth              |
+|        | POST                           | auth/login/{one?}/{two?}/{three?}/{four?}/{five?}      |               | App\Http\Controllers\Auth\AuthController@postLogin         | web               |
+|        | GET|HEAD                       | auth/login/{one?}/{two?}/{three?}/{four?}/{five?}      |               | App\Http\Controllers\Auth\AuthController@getLogin          | web               |
+|        | POST                           | auth/login2/{one?}/{two?}/{three?}/{four?}/{five?}     |               | App\Http\Controllers\Auth\AuthController@postLogin2        | web,auth          |
+|        | GET|HEAD                       | auth/logout/{one?}/{two?}/{three?}/{four?}/{five?}     |               | App\Http\Controllers\Auth\AuthController@getLogout         | web,auth          |
+|        | POST                           | auth/register/{one?}/{two?}/{three?}/{four?}/{five?}   |               | App\Http\Controllers\Auth\AuthController@postRegister      | web,auth,is_admin |
+|        | GET|HEAD                       | auth/register/{one?}/{two?}/{three?}/{four?}/{five?}   |               | App\Http\Controllers\Auth\AuthController@getRegister       | web,auth,is_admin |
+|        | GET|HEAD|POST|PUT|PATCH|DELETE | auth/{_missing}                                        |               | App\Http\Controllers\Auth\AuthController@missingMethod     | web,auth          |
+|        | GET|HEAD                       | password/broker/{one?}/{two?}/{three?}/{four?}/{five?} |               | App\Http\Controllers\Auth\PasswordController@getBroker     | web,guest         |
+|        | GET|HEAD                       | password/email/{one?}/{two?}/{three?}/{four?}/{five?}  |               | App\Http\Controllers\Auth\PasswordController@getEmail      | web,guest         |
+|        | POST                           | password/email/{one?}/{two?}/{three?}/{four?}/{five?}  |               | App\Http\Controllers\Auth\PasswordController@postEmail     | web,guest         |
+|        | POST                           | password/reset/{one?}/{two?}/{three?}/{four?}/{five?}  |               | App\Http\Controllers\Auth\PasswordController@postReset     | web,guest         |
+|        | GET|HEAD                       | password/reset/{one?}/{two?}/{three?}/{four?}/{five?}  |               | App\Http\Controllers\Auth\PasswordController@getReset      | web,guest         |
+|        | GET|HEAD|POST|PUT|PATCH|DELETE | password/{_missing}                                    |               | App\Http\Controllers\Auth\PasswordController@missingMethod | web,guest         |
+|        | GET|HEAD                       | sendemail                                              |               | Closure                                                    | web               |
+|        | POST                           | users                                                  | users.store   | App\Http\Controllers\UserController@store                  | web               |
+|        | GET|HEAD                       | users                                                  | users.index   | App\Http\Controllers\UserController@index                  | web               |
+|        | GET|HEAD                       | users/create                                           | users.create  | App\Http\Controllers\UserController@create                 | web               |
+|        | DELETE                         | users/{users}                                          | users.destroy | App\Http\Controllers\UserController@destroy                | web               |
+|        | PUT|PATCH                      | users/{users}                                          | users.update  | App\Http\Controllers\UserController@update                 | web               |
+|        | GET|HEAD                       | users/{users}                                          | users.show    | App\Http\Controllers\UserController@show                   | web               |
+|        | GET|HEAD                       | users/{users}/edit                                     | users.edit    | App\Http\Controllers\UserController@edit                   | web               |
++--------+--------------------------------+--------------------------------------------------------+---------------+------------------------------------------------------------+-------------------+

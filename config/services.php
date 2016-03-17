@@ -35,4 +35,26 @@ return [
         'secret' => env('STRIPE_SECRET'),
     ],
 
+    //agregue para loguearme con google
+    'google' => [
+        'client_id'     => env('GOOGLE_ID'),
+        'client_secret' => env('GOOGLE_SECRET'),
+        'redirect'      => env('GOOGLE_REDIRECT'),
+    ],
+
+
+    'facebook' => [
+        'client_id'     => env('FB_ID',null),
+        'client_secret' => env('FB_SECRET',null),
+        'redirect'      => env('FB_REDIRECT',null),
+    ],
+
+    'twitter' => [
+        'client_id'     => env('TW_ID',null),
+        'client_secret' => env('TW_SECRET',null),
+        'redirect'      => env('TW_REDIRECT',null),
+    ],
+
+
+
 ];

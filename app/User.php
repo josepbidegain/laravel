@@ -2,6 +2,8 @@
 
 namespace App;
 
+use Illuminate\Auth\Passwords\CanResetPassword;
+
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 use Zizaco\Entrust\Traits\EntrustUserTrait;
@@ -48,8 +50,10 @@ class User extends Authenticatable
     public function isAdmin()
     {   //hacer logica para retornar si es un admin mirando tabla role_user y role 
         //$role=UserRole::find($this);        
-        $role=true;
-        return $role;
+        
+        $isAdmin=$this->hasRole('admin');
+        
+        return $isAdmin?$isAdmin:false;
     }
 
 }

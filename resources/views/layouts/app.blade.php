@@ -40,33 +40,38 @@
 
                 <!-- Branding Image -->
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    Laravel
+                    Roemmers
                 </a>
             </div>
-            @if ( Auth::check() )
 
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
+                @if (Auth::check())
                 <!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav">
-                    <li><a href="{{ url('/') }}">Home</a></li>
+                    <li><a href="{{ url('/') }}">para ver como posicionar en izq</a></li>
                 </ul>
 
                 <!-- Right Side Of Navbar -->
                 <ul class="nav navbar-nav navbar-right">
-                    <!-- Authentication Links -->                       
+                    <!-- Authentication Links -->
+                    
+                    @if (Auth::user()->isAdmin())                    
+                        <li><a href="{{ url('/roles') }}">Roles</a></li>
+                        <li><a href="{{ url('/auth/register') }}">Register</a></li>
+                    @endif
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                 {{ Auth::user()->name }} <span class="caret"></span>
                             </a>
 
                             <ul class="dropdown-menu" role="menu">
-                            <li><a href="/users/{{Auth::user()->id}}/edit">Edit</a></li>
+                                <li><a href='/users/{{ Auth::user()->id }}/edit'>Edit</a></li>
                                 <li><a href="{{ url('/auth/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
                             </ul>
                         </li>
+                    @endif
                 </ul>
             </div>
-            @endif
         </div>
     </nav>
 

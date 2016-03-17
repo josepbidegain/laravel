@@ -28,15 +28,24 @@ Route::get('','HomeController@index');
 
 
 
+
 Route::group(['middleware' => ['web'],'role'=>'admin'], function () {
+
+	$s = 'social.';
+	Route::get('social/{provider?}', ['as' => $s . 'redirect',   'uses' => 'SocialController@getSocialAuth']);
+
+	Route::get('social/callback/{provider?}', ['as' => $s . 'handle',     'uses' => 'SocialController@getSocialAuthCallback']);
+
 	
 	Route::resource('users','UserController');	 
+	Route::resource('roles','RoleController');
 
+	//Route::auth();
 	Route::controllers([
 		'auth'=>'Auth\AuthController',
 		'password'=>'Auth\PasswordController',
 	]);
-
+/*
 	Route::get('sendemail', function () {
 
 	    $data = array(
@@ -50,6 +59,7 @@ Route::group(['middleware' => ['web'],'role'=>'admin'], function () {
 
 	    return "Your email has been sent successfully";
 	});
+	*/
 	
 });
 

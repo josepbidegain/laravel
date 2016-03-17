@@ -29,51 +29,27 @@ class UserController extends Controller
         $this->beforeFilter('eliminar_usuarios', array('only' => 'delete') );
         */
    } 
-
+   
     public function index(){
 
         
         $user = Auth::user();
         $users = User::paginate(3);
         
-        
+        if (\Request::ajax()) {
+            return view('user.ajax-users',compact('users'));
+        }
         //return view('user.index',['users'=>$users,'user'=>$user]);        
         return view('user.index',compact('users'));        
     }
-/*
-    public function index($array){
-        var_dump($array);
-        return;
-        //si se ha iniciado sesión no dejamos volver
-auth if(Auth::check(in
-        {
-             $users = User::paginate(3);
-        //$users = User::where('active',1); NO FUNCIONA, REVISAR
-        //return view('user.index',compact('users'));
-            return view('user.index',['users'=>$users]);           
-        }else{            
-            return Redirect::to('auth/login')->with('message','Debes estar logueado');           
-        }
-
-        
-    }
-    */
 
     public function create(){
-        return view('user.create');
+        $roles=Role::all();
+        return view('auth.register',compact('roles'))->with('message','');
     }
 
-    public function store(Request $request){
-    	
-        User::create([
-    			'name'=>$request['name'],
-    			'email'=>$request['email'],
-    			'password'=>$request['password'],
-                'active'=>1,
-    		]);
-
-
-    	return redirect('user')->with('message','store');
+    public function store(Request $request)
+    {
     }
 
     public function show($id){

@@ -39,7 +39,7 @@ return [
     |
     */
 
-    'url' => 'http://localhost',
+    'url' => 'https://localhost',
 
     /*
     |--------------------------------------------------------------------------
@@ -158,6 +158,7 @@ return [
 
         Collective\Html\HtmlServiceProvider::class,
         Zizaco\Entrust\EntrustServiceProvider::class,
+        Laravel\Socialite\SocialiteServiceProvider::class,
 
     ],
 
@@ -208,6 +209,7 @@ return [
         'Form' => 'Collective\Html\FormFacade',
         'Html' => 'Collective\Html\HtmlFacade',
         'Entrust' => 'Zizaco\Entrust\EntrustFacade',
+        'Socialite' => Laravel\Socialite\Facades\Socialite::class,
 
 
 

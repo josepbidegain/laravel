@@ -66,33 +66,14 @@
                             </div>
                         </div>
 
-                    <div class="form-group">
-                            <label class="col-md-4 control-label">Role</label>
-
-                            <div class="col-md-6">
-                                <select name="role">
-                                @foreach ($roles as $role)
-                                    <option value="{{ $role->id }}">{{ $role->name }}</option>    
-                                @endforeach                                    
-                                </select>
-                                
-                            </div>
-                        </div>
-
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">
                                     <i class="fa fa-btn fa-user"></i>Register
                                 </button>
                             </div>
-                        </div>                        
-                    </form>
-                    @if (session('status'))
-                        <div class="alert alert-success">
-                            {{ session('status') }}
                         </div>
-                    @endif
-                
+                    </form>
                 </div>
             </div>
         </div>

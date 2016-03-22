@@ -25,9 +25,10 @@
 
 
 Route::get('','HomeController@index');
+Route::get('export','ExcelController@export');
+Route::get('import','ExcelController@import');
 
-
-
+Route::get('filterusers/{count}','UserController@filter');	 
 
 Route::group(['middleware' => ['web'],'role'=>'admin'], function () {
 
@@ -38,6 +39,8 @@ Route::group(['middleware' => ['web'],'role'=>'admin'], function () {
 
 	
 	Route::resource('users','UserController');	 
+	
+
 	Route::resource('roles','RoleController');
 
 	//Route::auth();

@@ -25,14 +25,14 @@ class SocialController extends Controller
 	
 	public function getSocialAuthCallback(Request $request,$provider=null)
 	{
-		dd(Socialite::driver($provider)->user());
-		/*
-		$state = $request->get('state');
+		//dd(Socialite::driver($provider)->user());
+
+        $state = $request->get('state');
         $request->session()->put('state',$state);
 
         if(\Auth::check()==false){
           session()->regenerate();
-        }*/
+        }
 
 		if ($user_provider = Socialite::driver($provider)->user())
 		{
@@ -84,7 +84,7 @@ class SocialController extends Controller
 
 		}else
 			{
-				return 'algo fue mal';
+				return 'Error';
 			}
 	
 	}

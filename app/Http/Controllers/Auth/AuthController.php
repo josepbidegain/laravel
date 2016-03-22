@@ -44,8 +44,8 @@ class AuthController extends Controller
      */
     public function __construct()
     {        
-        //$this->middleware('auth', ['except' => ['getLogin','postLogin']]);
-        //$this->middleware('is_admin', ['only' => ['getRegister','postRegister']]);    
+        $this->middleware('auth', ['except' => ['getLogin','postLogin']]);
+        $this->middleware('is_admin', ['only' => ['getRegister','postRegister']]);    
     }
 
     /**

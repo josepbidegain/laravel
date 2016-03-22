@@ -75,9 +75,16 @@
 
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">                            
-                                <a href="{{ route('social.redirect', ['provider' => 'twitter']) }}" class="btn btn-lg btn-primary btn-block twitter" type="submit">Twitter</a>
+                                <a href="{{ route('social.redirect', ['provider' => 'twitter']) }}"  type="submit"><img src="{{ asset('images/sign-in-with-twitter-gray.png') }}" /></a>
                             </div>
                         </div>
+
+                        <div class="form-group">
+                            <div class="col-md-6 col-md-offset-4">                            
+                                <a href="{{ route('social.redirect', ['provider' => 'linkedin']) }}" class="btn btn-lg btn-primary btn-block linkedin" type="submit">Linkedin</a>
+                            </div>
+                        </div>
+
 
                     </form>
                 </div>

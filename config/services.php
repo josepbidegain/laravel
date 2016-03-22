@@ -55,6 +55,11 @@ return [
         'redirect'      => env('TW_REDIRECT',null),
     ],
 
+    'linkedin' => [
+            'client_id'     => env('LK_ID',null),
+            'client_secret' => env('LK_SECRET',null),
+            'redirect'      => env('LK_REDIRECT',null),
+        ],
 
 
 ];

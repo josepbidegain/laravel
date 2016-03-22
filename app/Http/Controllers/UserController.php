@@ -17,8 +17,8 @@ class UserController extends Controller
       
    public function __construct() {
       //$this->autorizado = (Auth::check() and Auth::user()->getRole(Auth::user()->id) == 1);      
-        $this->middleware('auth');        
-        $this->middleware('is_admin', ['except' => ['show','edit']]);        
+        //$this->middleware('auth');        
+        //$this->middleware('is_admin', ['except' => ['show','edit']]);        
 
 /*
         $this->beforeFilter('ver_usuarios', array('only' => 'index') );
@@ -30,16 +30,26 @@ class UserController extends Controller
         */
    } 
    
-    public function index(){
+    public function index($page=1,$count=3){
 
         
         $user = Auth::user();
-        $users = User::paginate(3);
+        $users = User::paginate($page,$count);
         
         if (\Request::ajax()) {
             return view('user.ajax-users',compact('users'));
         }
         //return view('user.index',['users'=>$users,'user'=>$user]);        
+        return view('user.index',compact('users'));        
+    }
+
+    public function filter($count){
+        $user = Auth::user();
+        $users = User::paginate($count);
+        if (\Request::ajax()){
+         return view('user.ajax-users',compact('users'));   
+        }
+        $users = User::paginate(3);
         return view('user.index',compact('users'));        
     }
 

@@ -19,7 +19,7 @@
 	  	<div class="col-xs-6">
 	  	<div id="DataTables_Table_0_length" class="dataTables_length">
 	  		<label>Show 
-		  		<select >
+		  		<select name="count_users" id="count_users">
 			  		<option value="10">10</option>
 			  		<option value="50">50</option>
 			  		<option value="100">100</option>
@@ -69,8 +69,17 @@
 
 	</table>
 			 {!! $users->render() !!}
-
 	</div>
+
+	<form action="/export/" method="get">
+	<select name="formato">
+	<option value="excel">Excel</option>
+	<option value="pdf">PDF</option>
+	<option value="csv">CSV</option>
+	</select>
+	<input type="submit" value="Exportar" />
+	</form>
+	
 
 	
 </div>
@@ -86,16 +95,35 @@
                 getUsers($(this).attr('href').split('page=')[1]);
                 e.preventDefault();
             });
+
+            $('#count_users').change(function(e){            	
+            	//getUsersPerPage($(this).val());            	
+            	getUsers($(this).attr('href').split('page=')[1]);
+            });
+            //$('body').on('change','#count_users',function(e){alert( $(this).value();
+            	//getUsersPerPage($(this).value());            	
+            //});
         });
  
         function getUsers(page) {
             $.ajax({
-                url : '?page=' + page,
+                url : '?page=' + page+'&count='+$('#count_users').val(),
                 dataType: 'text',
             }).done(function (data) {console.log(data);
                 $('#users-ajax').html(data);
             }).fail(function (error) {console.log(error);
                 alert('Users could not be loaded.');
+            });
+        }
+
+        function getUsersPerPage(count){
+        	$.ajax({
+                url : 'filterusers/' + count,
+                dataType: 'text',
+            }).done(function (data) {console.log(data);
+                $('#users-ajax').html(data);
+            }).fail(function (error) {console.log(error);
+                //alert('Users could not be loaded.');
             });
         }
     </script>

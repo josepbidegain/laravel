@@ -159,6 +159,7 @@ return [
         Collective\Html\HtmlServiceProvider::class,
         Zizaco\Entrust\EntrustServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,
+        'Maatwebsite\Excel\ExcelServiceProvider',
 
     ],
 
@@ -210,7 +211,7 @@ return [
         'Html' => 'Collective\Html\HtmlFacade',
         'Entrust' => 'Zizaco\Entrust\EntrustFacade',
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
-
+        'Excel' => 'Maatwebsite\Excel\Facades\Excel',
 
 
     ],

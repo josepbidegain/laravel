@@ -12,6 +12,10 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Auth;
 
+//use Illuminate\Support\Facades\Paginator;
+use Illuminate\Pagination\Paginator;
+//use Paginator;
+
 class UserController extends Controller
 {
       
@@ -30,11 +34,17 @@ class UserController extends Controller
         */
    } 
    
-    public function index($page=1,$count=3){
-
+    public function index(){
+        //http://localhost:8000/users?page=50&count=50
+        //$page=$request['page'];
+        //$perPage=isset($request['count'])?$request['count']:3;
         
-        $user = Auth::user();
-        $users = User::paginate($page,$count);
+        $users = User::paginate(3);
+        //$totalUsers = count($users);
+        //$users = $paginator->make($users, $totalUsers, $perPage);
+     
+        //$user = Auth::user();
+        //$users = User::paginate(per_page=$count,current_page=$page);
         
         if (\Request::ajax()) {
             return view('user.ajax-users',compact('users'));
@@ -43,8 +53,10 @@ class UserController extends Controller
         return view('user.index',compact('users'));        
     }
 
-    public function filter($count){
-        $user = Auth::user();
+    public function filter(Request $request,$count){        
+        echo $count;
+        $page = isset($request['page']) ? $request['page'] : 1;
+        
         $users = User::paginate($count);
         if (\Request::ajax()){
          return view('user.ajax-users',compact('users'));   

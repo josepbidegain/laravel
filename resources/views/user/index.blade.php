@@ -20,6 +20,7 @@
 	  	<div id="DataTables_Table_0_length" class="dataTables_length">
 	  		<label>Show 
 		  		<select name="count_users" id="count_users">
+			  		<option value="5">5</option>
 			  		<option value="10">10</option>
 			  		<option value="50">50</option>
 			  		<option value="100">100</option>
@@ -98,7 +99,7 @@
 
             $('#count_users').change(function(e){            	
             	//getUsersPerPage($(this).val());            	
-            	getUsers($(this).attr('href').split('page=')[1]);
+            	getUsersPerPage($(this).val());
             });
             //$('body').on('change','#count_users',function(e){alert( $(this).value();
             	//getUsersPerPage($(this).value());            	
@@ -107,7 +108,7 @@
  
         function getUsers(page) {
             $.ajax({
-                url : '?page=' + page+'&count='+$('#count_users').val(),
+                url : '?page=' + page,
                 dataType: 'text',
             }).done(function (data) {console.log(data);
                 $('#users-ajax').html(data);

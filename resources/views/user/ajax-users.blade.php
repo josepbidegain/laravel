@@ -32,4 +32,4 @@
 
 	</table>
 
-				 {!! $users->render() !!}
+	{!! $users->render() !!}

@@ -22,7 +22,7 @@ class UserController extends Controller
    public function __construct() {
       //$this->autorizado = (Auth::check() and Auth::user()->getRole(Auth::user()->id) == 1);      
         //$this->middleware('auth');        
-        //$this->middleware('is_admin', ['except' => ['show','edit']]);        
+        $this->middleware('is_admin', ['except' => ['show','edit']]);        
 
 /*
         $this->beforeFilter('ver_usuarios', array('only' => 'index') );

@@ -42,6 +42,10 @@ class SocialController extends Controller
 	        if(!empty($userCheck))
 	        {
 	            $user = $userCheck;
+	            /* preguntar si quiere asociar cuenta a usuario
+	            	ver si siempre ingresa aca login/registro, pq hay que preguntar
+	            	1 sola vez
+	            */
 	        }
 	        else
 	        {	//busco id de proveedor si ya esta creado

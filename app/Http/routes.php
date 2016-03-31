@@ -29,6 +29,8 @@ Route::get('export','ExcelController@export');
 Route::get('import','ExcelController@import');
 
 Route::get('filterusers/{count}','UserController@filter');	 
+Route::get('search/{value}','UserController@search');	 
+
 
 Route::group(['middleware' => ['web'],'role'=>'admin'], function () {
 

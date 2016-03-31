@@ -31,10 +31,12 @@
 	  	<div class="col-xs-6">
 		  	<div class="dataTables_filter" id="DataTables_Table_0_filter">
 		  		<label>Search:
-		  			<input aria-controls="DataTables_Table_0" placeholder="" class="form-control input-sm" type="search">
+		  			<input aria-controls="DataTables_Table_0" placeholder="" class="form-control input-sm" type="search" id="search" onkeydown="down()" onkeyup="up()">
 		  		</label>
 		  	</div>
+		  	<div class="col-xs-10" id='ajax-results'></div>
 	  	</div>
+	  	
   	</div>
 	<div id="users-ajax">
 
@@ -89,26 +91,51 @@
  <script src="//code.jquery.com/jquery-2.1.3.min.js"></script>
     <script>
      
+     	var timer;
+
         // Ajax pagination
  
         $(function() {
             $('body').on('click', '.pagination li a', function (e) {
-                getUsers($(this).attr('href').split('page=')[1]);
+                getUsers($(this).attr('href').split('page=')[1],$('#count_users').val());
                 e.preventDefault();
             });
 
-            $('#count_users').change(function(e){            	
-            	//getUsersPerPage($(this).val());            	
+            $('#count_users').change(function(){            	
             	getUsersPerPage($(this).val());
-            });
-            //$('body').on('change','#count_users',function(e){alert( $(this).value();
-            	//getUsersPerPage($(this).value());            	
-            //});
+            });           
+            
+            /*$('#search').on('keyup', function(e){
+            	getSearchResult($('#search').val());
+            });*/
+
         });
+
+        function up(){
+            	timer = setTimeout(function(){
+            		var keywords = $('#search').val();
+            		if ( keywords.length > 0 ){
+            			
+            			$.ajax({
+			            	url:'search/'+keywords,
+			            	dataType:'text',
+			            }).done(function(data){
+			            	$('#ajax-results').html(data);
+			            }).fail(function(error){console.log(error);
+			            	//alert('Users could not be loaded.');
+			            });
+            		}
+            	},500);
+            }
+
+        function down(){
+        	clearTimeout(timer);
+        }
+
  
-        function getUsers(page) {
+        function getUsers(page,count) {
             $.ajax({
-                url : '?page=' + page,
+                url : '?page=' + page + '&count='+ count,
                 dataType: 'text',
             }).done(function (data) {console.log(data);
                 $('#users-ajax').html(data);
@@ -121,10 +148,10 @@
         	$.ajax({
                 url : 'filterusers/' + count,
                 dataType: 'text',
-            }).done(function (data) {console.log(data);
+            }).done(function (data) {
                 $('#users-ajax').html(data);
-            }).fail(function (error) {console.log(error);
-                //alert('Users could not be loaded.');
+            }).fail(function (error) {
+                alert('Users could not be loaded.');
             });
         }
     </script>
